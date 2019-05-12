@@ -13,6 +13,10 @@ getData()
 //fetching data(object) from local storage
 let products = getSavedProducts();
 console.log(products);
+// let parentProducts = products.filter(product => {
+//   return product.ParentCategoryId === 0;
+// });
+// console.log(parentProducts);
 
 // filters
 const filters = {

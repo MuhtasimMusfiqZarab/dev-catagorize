@@ -29,7 +29,7 @@ const saveProducts = products => {
 //Generate the DOM structure for a products==========================2
 const generateProductDOM = product => {
   //this is the container element for p and button
-  const productElement = document.createElement("a");
+  const productElement = document.createElement("p");
   const textElement = document.createElement("p");
   // const statusEl = document.createElement("p");
 
@@ -43,8 +43,6 @@ const generateProductDOM = product => {
 
   productElement.appendChild(textElement);
 
-  //setup the link
-  productElement.setAttribute("href", `/edit.html#${product.Id}`);
   productElement.classList.add("list-item");
 
   return productElement;
@@ -56,6 +54,11 @@ const renderProducts = (products, filters) => {
   const filteredProducts = products.filter(product =>
     product.Name.toLowerCase().includes(filters.searchText.toLowerCase())
   );
+
+  //finding the parent of filteredProducts
+  // const parentProduct = filteredProducts.filter(product=>{
+  //   return
+  // })
 
   //clearing previous rendered notes
   productsEl.innerHTML = "";
