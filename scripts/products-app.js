@@ -41,3 +41,11 @@ window.addEventListener("storage", e => {
     renderNotes(products, filters);
   }
 });
+
+//reload the page to show the fetched data on the screen
+// }, 1000);
+if (document.referrer !== document.location.href) {
+  setTimeout(function() {
+    document.location.reload();
+  }, 1000);
+}
