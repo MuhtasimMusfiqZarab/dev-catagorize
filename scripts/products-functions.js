@@ -75,11 +75,11 @@ const renderProducts = (products, filters) => {
 };
 
 //text highlight as per search
-function highlight(text) {
+const highlight = text => {
   const textEl = text.charAt(0).toUpperCase() + text.slice(1);
-  var inputText = document.querySelector(".textHighlight");
-  var innerHTML = inputText.innerHTML;
-  var index = innerHTML.indexOf(textEl);
+  let inputText = document.querySelector(".textHighlight");
+  let innerHTML = inputText.innerHTML;
+  const index = innerHTML.indexOf(textEl);
   if (index >= 0) {
     innerHTML =
       innerHTML.substring(0, index) +
@@ -89,4 +89,4 @@ function highlight(text) {
       innerHTML.substring(index + textEl.length);
     inputText.innerHTML = innerHTML;
   }
-}
+};

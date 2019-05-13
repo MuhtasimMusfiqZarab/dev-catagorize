@@ -11,7 +11,6 @@ getData()
 
 //fetching data from local storage
 let products = getSavedProducts();
-console.log(products);
 let parentProducts = products.filter(product => {
   return product.ParentCategoryId === 0;
 });
