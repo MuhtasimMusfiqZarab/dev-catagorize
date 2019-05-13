@@ -1,7 +1,6 @@
 "use strict";
 
 //fetching from json file
-//fetch inside a function with async/await==> async always returns a promise
 const getData = async () => {
   const response = await fetch("/json/json.json", {});
   if (response.status === 200) {
@@ -17,7 +16,7 @@ const getSavedProducts = () => {
   try {
     return productsJSON ? JSON.parse(productsJSON) : [];
   } catch (error) {
-    return []; //if unable to parse JSON data
+    return []; //unable to parse JSON data
   }
 };
 
@@ -26,12 +25,12 @@ const saveProducts = products => {
   localStorage.setItem("products", JSON.stringify(products));
 };
 
-//Generate the DOM structure for a products==========================2
+//Generate the DOM structure for a products=====================================
 const generateProductDOM = product => {
-  //this is the container element for p and button
+  //container for elements
   const productElement = document.createElement("p");
   const textElement = document.createElement("p");
-  // const statusEl = document.createElement("p");
+  textElement.setAttribute("id", "textHighlight");
 
   //setup the note title text
   if (product.Name.length > 0) {
@@ -40,32 +39,25 @@ const generateProductDOM = product => {
     textElement.textContent = "Unnamed Product ";
   }
   textElement.classList.add("list-item__title");
-
   productElement.appendChild(textElement);
-
   productElement.classList.add("list-item");
 
   return productElement;
 };
 
-//rendering application products=======================================2--done
+//rendering  products=======================================
 const renderProducts = (products, filters) => {
   const productsEl = document.querySelector("#notes");
   const filteredProducts = products.filter(product =>
     product.Name.toLowerCase().includes(filters.searchText.toLowerCase())
   );
 
-  //finding the parent of filteredProducts
-  // const parentProduct = filteredProducts.filter(product=>{
-  //   return
-  // })
-
-  //clearing previous rendered notes
+  //clearing previous rendered Products
   productsEl.innerHTML = "";
 
-  //if we are rendering any notes
+  //Checking for render
   if (filteredProducts.length > 0) {
-    //add filteded notes to DOM
+    //add products to DOM
     filteredProducts.forEach(product => {
       const productElement = generateProductDOM(product);
       productsEl.appendChild(productElement);
@@ -73,8 +65,24 @@ const renderProducts = (products, filters) => {
   } else {
     const emptyMessage = document.createElement("p");
     emptyMessage.textContent = " No products found";
-    //adding styles to this paragraph
     emptyMessage.classList.add("empty-message");
     productsEl.appendChild(emptyMessage);
   }
 };
+
+//text highlight as per search
+function highlight(text) {
+  const textEl = text.charAt(0).toUpperCase() + text.slice(1);
+  var inputText = document.getElementById("textHighlight");
+  var innerHTML = inputText.innerHTML;
+  var index = innerHTML.indexOf(textEl);
+  if (index >= 0) {
+    innerHTML =
+      innerHTML.substring(0, index) +
+      "<span class='highlight'>" +
+      innerHTML.substring(index, index + textEl.length) +
+      "</span>" +
+      innerHTML.substring(index + textEl.length);
+    inputText.innerHTML = innerHTML;
+  }
+}

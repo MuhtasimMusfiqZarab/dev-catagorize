@@ -3,7 +3,6 @@
 //fetching from json file
 getData()
   .then(products => {
-    //saving  this data to local storage
     saveProducts(products);
   })
   .catch(err => {
@@ -13,10 +12,9 @@ getData()
 //fetching data(object) from local storage
 let products = getSavedProducts();
 console.log(products);
-// let parentProducts = products.filter(product => {
-//   return product.ParentCategoryId === 0;
-// });
-// console.log(parentProducts);
+let parentProducts = products.filter(product => {
+  return product.ParentCategoryId === 0;
+});
 
 // filters
 const filters = {
@@ -24,17 +22,21 @@ const filters = {
 };
 
 //initial rendering
-renderProducts(products, filters);
+renderProducts(parentProducts, filters);
 
 //render as input changes (render by search)
 document.querySelector("#search-text").addEventListener("input", e => {
   filters.searchText = e.target.value;
-  renderProducts(products, filters);
+  if (e.target.value === "") {
+    renderProducts(parentProducts, filters);
+  } else {
+    renderProducts(products, filters);
+    highlight(filters.searchText);
+  }
 });
 
 //showing changed data to other opened tabs
 window.addEventListener("storage", e => {
-  //checking if the change is made to products catagory
   if (e.key === "products") {
     products = JSON.parse(e.newValue);
     renderNotes(products, filters);

@@ -174,3 +174,8 @@ a {
   text-align: center;
   margin: 3.2rem 0;
 }
+
+/* highlight text */
+.highlight {
+  background-color: yellow;
+}
