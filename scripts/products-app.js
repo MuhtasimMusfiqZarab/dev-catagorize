@@ -47,5 +47,5 @@ window.addEventListener("storage", e => {
 if (document.referrer !== document.location.href) {
   setTimeout(function() {
     document.location.reload();
-  }, 200);
+  }, 1000);
 }
