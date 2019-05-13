@@ -6,11 +6,11 @@ const getData = async () => {
   if (response.status === 200) {
     return response.json();
   } else {
-    throw new Error("Unable to fetch the puzzle");
+    throw new Error("Unable to fetch data");
   }
 };
 
-//read existing notes from local storage Products===================
+//read existing products from local storage ===================================
 const getSavedProducts = () => {
   const productsJSON = localStorage.getItem("products");
   try {
@@ -20,19 +20,23 @@ const getSavedProducts = () => {
   }
 };
 
-//saving notes==============================================
+//saving Products==============================================
 const saveProducts = products => {
   localStorage.setItem("products", JSON.stringify(products));
 };
 
-//Generate the DOM structure for a products=====================================
+//Generate the DOM structure for a product=====================================
 const generateProductDOM = product => {
-  //container for elements
+  //container  with the textElement
   const productElement = document.createElement("p");
   const textElement = document.createElement("p");
-  textElement.setAttribute("id", "textHighlight");
 
-  //setup the note title text
+  //Setting Up class attributes
+  const classAttribute = document.createAttribute("class");
+  classAttribute.value = "textHighlight";
+  textElement.setAttributeNode(classAttribute);
+
+  //setup the Product Title text
   if (product.Name.length > 0) {
     textElement.textContent = product.Name;
   } else {
@@ -73,7 +77,7 @@ const renderProducts = (products, filters) => {
 //text highlight as per search
 function highlight(text) {
   const textEl = text.charAt(0).toUpperCase() + text.slice(1);
-  var inputText = document.getElementById("textHighlight");
+  var inputText = document.querySelector(".textHighlight");
   var innerHTML = inputText.innerHTML;
   var index = innerHTML.indexOf(textEl);
   if (index >= 0) {
